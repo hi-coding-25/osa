@@ -1,0 +1,40 @@
+# Heavy work/source files not needed for the public website.
+dem/
+foto 2/
+
+# Keep only photos referenced by the current website pages.
+foto/*
+!foto/osa_coppia_sulla_citta_antica.png
+!foto/osa_donna_con_cornice_nel_campo.png
+!foto/osa_donna_dietro_siepe.png
+!foto/osa_donna_sull_albero_con_binocolo.png
+!foto/osa_donna_sulla_scala_davanti_al_muro.png
+!foto/osa_uomo_all_oblo_della_nave.png
+!foto/osa_uomo_attraversa_porta_in_strada.png
+!foto/osa_uomo_che_spia_da_dietro_muro.png
+!foto/osa_uomo_e_donna_sull_asse_in_equilibrio.png
+!foto/osa_uomo_in_verticale_sul_belvedere.png
+!foto/osa_uomo_sul_monociclo_sopra_la_citta.png
+
+# Keep only website image assets.
+img/charts/
+img/embedded-slides/
+
+# Keep only the hero video used by the published pages.
+video/*
+!video/No_camera_movement_natural_movement_202605211233.mp4
+
+# Keep only lightweight cover images from the YouTube folder.
+youtube/*
+!youtube/cover/
+youtube/cover/*
+!youtube/cover/*.jpg
+
+# Keep only the current website variants in html/.
+html/*
+!html/osa_site_horizontal_concept.html
+!html/osa_site_horizontal_concept_courier.html
+
+# Local OS/editor noise.
+.DS_Store
+*.tmp

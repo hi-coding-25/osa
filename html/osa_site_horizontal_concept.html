@@ -1,0 +1,1491 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>OSA - Horizontal Concept</title>
+  <meta name="description" content="OSA - Original Style Advertising. Concept orizzontale, case history e contatti." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050505;
+      --fg: #f4f0ea;
+      --muted: rgba(244, 240, 234, .62);
+      --quiet: rgba(244, 240, 234, .36);
+      --line: rgba(244, 240, 234, .18);
+      --accent: #b8a3f4;
+      --sage: #b9c9ad;
+      --mono: "Roboto Mono", "Courier New", Courier, monospace;
+      --sans: var(--mono);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--bg); }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--sans);
+      letter-spacing: 0;
+      overflow-x: hidden;
+      text-rendering: geometricPrecision;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    h1, h2, h3, .mono, .label, .nav, .panel-count, .case-meta, .contacts {
+      font-family: var(--mono);
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .shell {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      background: rgba(5, 5, 5, .78);
+      border-bottom: 1px solid rgba(244, 240, 234, .08);
+      backdrop-filter: blur(18px);
+    }
+
+    .nav {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      color: var(--fg);
+    }
+
+    .brand img { width: 82px; }
+    .brand span { color: var(--muted); white-space: nowrap; }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+
+    .nav-links a:hover { color: var(--fg); }
+
+    .hero {
+      min-height: 100svh;
+      position: relative;
+      display: grid;
+      align-items: center;
+      padding: 118px 0 64px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(5,5,5,.96), rgba(5,5,5,.48) 48%, rgba(5,5,5,.08)),
+        linear-gradient(0deg, rgba(5,5,5,.88), rgba(5,5,5,.12) 52%, rgba(5,5,5,.70));
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1);
+      opacity: .72;
+      transform: scale(1.04);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 780px;
+    }
+
+    .label {
+      margin: 0 0 22px;
+      color: var(--accent);
+      font-size: 15px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(62px, 12vw, 160px);
+      line-height: .8;
+    }
+
+    .hero h2 {
+      margin: 28px 0 0;
+      max-width: 740px;
+      font-size: clamp(25px, 3.8vw, 48px);
+      line-height: 1.13;
+    }
+
+    .horizontal-section {
+      position: relative;
+      height: 1320vh;
+      background: #050505;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .sticky-track {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      overflow: hidden;
+      display: grid;
+      align-items: center;
+      padding-top: 70px;
+    }
+
+    .track-intro {
+      position: absolute;
+      z-index: 5;
+      left: max(24px, calc((100vw - 1180px) / 2));
+      top: 102px;
+      width: min(480px, calc(100vw - 48px));
+      pointer-events: none;
+    }
+
+    .track-intro p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .progress-rail {
+      position: absolute;
+      z-index: 6;
+      left: max(24px, calc((100vw - 1180px) / 2));
+      right: max(24px, calc((100vw - 1180px) / 2));
+      bottom: 38px;
+      height: 2px;
+      background: rgba(244, 240, 234, .14);
+    }
+
+    .progress-rail span {
+      display: block;
+      width: var(--progress, 0%);
+      height: 100%;
+      background: var(--fg);
+    }
+
+    .horizontal-track {
+      display: flex;
+      height: calc(100svh - 70px);
+      width: max-content;
+      transform: translate3d(var(--track-x, 0px), 0, 0);
+      will-change: transform;
+    }
+
+    .panel {
+      width: 100vw;
+      min-width: 100vw;
+      height: 100%;
+      display: grid;
+      align-items: center;
+      padding: 164px max(24px, calc((100vw - 1180px) / 2)) 118px;
+      position: relative;
+      overflow: hidden;
+      border-right: 1px solid var(--line);
+    }
+
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(5,5,5,.94), rgba(5,5,5,.58) 48%, rgba(5,5,5,.16)),
+        var(--panel-img) center / cover no-repeat;
+      filter: grayscale(1);
+      opacity: .62;
+      transform: translate3d(calc(var(--panel-depth, 0) * -16px), 0, 0) scale(1.08);
+      will-change: transform;
+    }
+
+    .panel-content {
+      position: relative;
+      z-index: 2;
+      max-width: min(820px, calc(100vw - 96px));
+      max-height: calc(100svh - 270px);
+      transform: translate3d(calc(var(--panel-depth, 0) * 28px), 0, 0);
+      will-change: transform;
+    }
+
+    .panel-count {
+      color: var(--quiet);
+      font-size: 13px;
+      margin-bottom: 24px;
+    }
+
+    .panel h2 {
+      margin: 0;
+      font-size: clamp(24px, 3.55vw, 52px);
+      line-height: 1.13;
+      overflow-wrap: normal;
+      text-wrap: balance;
+    }
+
+    .panel p {
+      margin: 24px 0 0;
+      max-width: 690px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: clamp(16px, 1.35vw, 20px);
+      line-height: 1.5;
+    }
+
+    .panel.center-panel {
+      align-items: center;
+      padding-top: 104px;
+      padding-bottom: 104px;
+    }
+
+    .panel .stacked {
+      display: grid;
+      gap: clamp(14px, 2vw, 20px);
+    }
+
+    .panel .stacked h2 {
+      font-size: clamp(20px, 2.55vw, 40px);
+      line-height: 1.15;
+    }
+
+    .chart-panel::before {
+      background:
+        linear-gradient(90deg, rgba(5,5,5,.98), rgba(5,5,5,.84) 46%, rgba(5,5,5,.98));
+      opacity: 1;
+    }
+
+    .chart-panel {
+      align-items: center;
+      padding-top: 104px;
+      padding-bottom: 104px;
+    }
+
+    .chart-layout {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: minmax(260px, .34fr) minmax(0, .66fr);
+      gap: clamp(22px, 4vw, 54px);
+      align-items: center;
+      justify-self: center;
+      width: min(1160px, calc(100vw - 96px));
+    }
+
+    .chart-copy {
+      max-width: 390px;
+      transform: translate3d(calc(var(--panel-depth, 0) * 28px), 0, 0);
+      will-change: transform;
+    }
+
+    .chart-copy h2 {
+      margin: 0;
+      font-size: clamp(21px, 2.55vw, 38px);
+      line-height: 1.16;
+    }
+
+    .chart-visual {
+      border: 1px solid var(--line);
+      background: #050505;
+      overflow: hidden;
+      transform: translate3d(calc(var(--panel-depth, 0) * -18px), 0, 0);
+      will-change: transform;
+      min-height: min(570px, calc(100svh - 214px));
+    }
+
+    .chart-eyebrow,
+    .source,
+    .range-note,
+    .media-label,
+    .media-line,
+    .media-total,
+    .donut-center {
+      font-family: var(--mono);
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .chart-eyebrow {
+      color: var(--muted);
+      font-size: clamp(12px, .92vw, 15px);
+      margin: 0 0 16px;
+    }
+
+    .source {
+      color: var(--quiet);
+      font-size: 11px;
+      line-height: 1.4;
+      margin-top: 18px;
+    }
+
+    .population-chart {
+      display: grid;
+      grid-template-columns: .78fr 1.22fr;
+      gap: clamp(18px, 2.3vw, 34px);
+      padding: clamp(22px, 3vw, 36px);
+      align-items: center;
+    }
+
+    .population-hero {
+      display: grid;
+      gap: 18px;
+      align-content: center;
+      min-width: 0;
+    }
+
+    .big-number {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: clamp(50px, 5.4vw, 76px);
+      line-height: .86;
+      opacity: 0;
+      transform: translate3d(-22px, 0, 0);
+      transition: opacity .75s ease, transform .75s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .population-hero p {
+      margin: 0;
+      color: var(--fg);
+      font-size: clamp(15px, 1.18vw, 19px);
+      line-height: 1.22;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 14px;
+      background: rgba(244, 240, 234, .14);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      display: block;
+      height: 100%;
+      width: 0;
+      background: var(--accent);
+      transition: width 1.15s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .panel.is-active .big-number {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .panel.is-active .progress-fill {
+      width: var(--value);
+    }
+
+    .age-bars {
+      display: grid;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .age-row {
+      display: grid;
+      grid-template-columns: 52px minmax(0, 1fr) 46px;
+      gap: 10px;
+      align-items: center;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: clamp(11px, .78vw, 13px);
+    }
+
+    .bar {
+      height: 22px;
+      background: rgba(244, 240, 234, .1);
+      overflow: hidden;
+      position: relative;
+    }
+
+    .bar span {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 0;
+      background: rgba(244, 240, 234, .62);
+      transition: width 1s cubic-bezier(.22, 1, .36, 1);
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .age-row.is-over .bar span {
+      background: var(--accent);
+    }
+
+    .panel.is-active .bar span {
+      width: var(--value);
+    }
+
+    .range-note {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+      color: var(--quiet);
+      font-size: 11px;
+    }
+
+    .range-note b {
+      color: var(--fg);
+      font-weight: 400;
+    }
+
+    .media-chart {
+      padding: clamp(18px, 2.7vw, 32px);
+      display: grid;
+      grid-template-columns: minmax(180px, .62fr) minmax(0, 1.38fr);
+      gap: clamp(18px, 2.4vw, 32px);
+      align-items: center;
+    }
+
+    .donut-wrap {
+      display: grid;
+      place-items: center;
+      gap: 14px;
+    }
+
+    .donut {
+      width: min(220px, 28vw);
+      aspect-ratio: 1;
+      border-radius: 50%;
+      background:
+        conic-gradient(
+          var(--accent) 0 56%,
+          rgba(244, 240, 234, .64) 56% 96%,
+          rgba(185, 201, 173, .92) 96% 100%
+        );
+      position: relative;
+      opacity: 0;
+      transform: scale(.82) rotate(-18deg);
+      transition: opacity .8s ease, transform 1s cubic-bezier(.22, 1, .36, 1);
+    }
+
+    .donut::before {
+      content: "";
+      position: absolute;
+      inset: 20%;
+      border-radius: 50%;
+      background: #050505;
+      border: 1px solid rgba(244, 240, 234, .16);
+    }
+
+    .donut-center {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-content: center;
+      text-align: center;
+      color: var(--fg);
+      font-size: 13px;
+      line-height: 1.15;
+    }
+
+    .donut-center strong {
+      display: block;
+      color: var(--accent);
+      font-size: 34px;
+      font-weight: 400;
+    }
+
+    .panel.is-active .donut {
+      opacity: 1;
+      transform: scale(1) rotate(0);
+    }
+
+    .legend {
+      display: grid;
+      gap: 7px;
+      width: 100%;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .legend span {
+      display: inline-block;
+      width: 11px;
+      height: 11px;
+      margin-right: 9px;
+      background: var(--swatch);
+    }
+
+    .media-table {
+      display: grid;
+      gap: 11px;
+      min-width: 0;
+    }
+
+    .media-group {
+      border-top: 1px solid var(--line);
+      padding-top: 10px;
+      opacity: 0;
+      transform: translate3d(0, 18px, 0);
+      transition: opacity .7s ease, transform .7s cubic-bezier(.22, 1, .36, 1);
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .panel.is-active .media-group {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    .media-total {
+      display: grid;
+      grid-template-columns: 76px minmax(0, 1fr);
+      gap: 9px;
+      color: var(--fg);
+      font-size: clamp(12px, .9vw, 15px);
+      line-height: 1.18;
+      margin-bottom: 7px;
+    }
+
+    .media-total b {
+      color: var(--accent);
+      font-weight: 400;
+    }
+
+    .media-line {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 38px 42px;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 10.5px;
+      line-height: 1.25;
+    }
+
+    .osa-mark {
+      display: inline-block;
+      margin-right: .28em;
+      color: rgba(184, 163, 244, .96);
+      white-space: nowrap;
+    }
+
+    .osa-mark .slash {
+      color: rgba(184, 163, 244, .62);
+    }
+
+    .hint {
+      position: absolute;
+      z-index: 8;
+      right: max(24px, calc((100vw - 1180px) / 2));
+      bottom: 56px;
+      color: var(--quiet);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .vertical-section {
+      padding: 104px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 48px;
+      margin-bottom: 46px;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(31px, 5vw, 64px);
+      line-height: 1.06;
+    }
+
+    .section-head p {
+      margin: 18px 0 0;
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.5;
+    }
+
+    .case-carousel {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(320px, 40%);
+      gap: 18px;
+      overflow-x: auto;
+      scroll-snap-type: inline mandatory;
+      padding-bottom: 20px;
+    }
+
+    .case-carousel::-webkit-scrollbar { height: 8px; }
+    .case-carousel::-webkit-scrollbar-track { background: rgba(244, 240, 234, .08); }
+    .case-carousel::-webkit-scrollbar-thumb { background: rgba(244, 240, 234, .36); }
+
+    .case-card {
+      scroll-snap-align: start;
+      border: 1px solid var(--line);
+      background: #090909;
+      min-height: 492px;
+      display: grid;
+      grid-template-rows: 230px 1fr;
+      transition: transform .2s ease, border-color .2s ease;
+    }
+
+    .case-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(244, 240, 234, .44);
+    }
+
+    .yt-thumb {
+      position: relative;
+      overflow: hidden;
+      background: #0b0b0b;
+      filter: grayscale(1);
+    }
+
+    .yt-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: .76;
+      transform: scale(1.02);
+    }
+
+    .yt-thumb::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background: linear-gradient(0deg, rgba(5,5,5,.78), rgba(5,5,5,.06));
+      pointer-events: none;
+    }
+
+    .yt-thumb::after {
+      content: "▶";
+      position: absolute;
+      z-index: 2;
+      left: 24px;
+      bottom: 22px;
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      border: 1px solid rgba(244,240,234,.48);
+      background: rgba(5,5,5,.54);
+      color: var(--fg);
+      font-size: 20px;
+    }
+
+    .case-body {
+      padding: 24px;
+      display: grid;
+      gap: 22px;
+    }
+
+    .case-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      color: var(--quiet);
+      font-size: 12px;
+    }
+
+    .case-body h3 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.08;
+    }
+
+    .case-fields {
+      display: grid;
+      gap: 14px;
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+    }
+
+    .case-fields p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.45;
+    }
+
+    .case-fields b {
+      color: var(--sage);
+      font-family: var(--mono);
+      font-weight: 400;
+    }
+
+    .contacts {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 36px 56px;
+      margin-top: 48px;
+      font-size: 15px;
+    }
+
+    .contact-person {
+      appearance: none;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      text-align: left;
+      cursor: pointer;
+      font: inherit;
+    }
+
+    .contact-image {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      margin-bottom: 13px;
+      background: #0b0b0b;
+    }
+
+    .contact-person img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: grayscale(1);
+      transform: scale(1);
+      transition: transform .28s ease;
+    }
+
+    .contact-person:hover img,
+    .contact-person:focus-visible img {
+      transform: scale(1.05);
+    }
+
+    .contact-person span {
+      display: block;
+      color: var(--fg);
+    }
+
+    .contact-person:focus-visible {
+      outline: 1px solid var(--accent);
+      outline-offset: 8px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      display: none;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .modal.is-open {
+      display: grid;
+    }
+
+    .modal-backdrop {
+      position: absolute;
+      inset: 0;
+      background: rgba(5, 5, 5, .78);
+      backdrop-filter: blur(10px);
+    }
+
+    .modal-panel {
+      position: relative;
+      z-index: 1;
+      width: min(520px, 100%);
+      border: 1px solid var(--line);
+      background: #090909;
+      padding: clamp(24px, 4vw, 36px);
+    }
+
+    .modal-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: start;
+      margin-bottom: 28px;
+    }
+
+    .modal-head h2 {
+      margin: 0;
+      font-size: clamp(24px, 4vw, 38px);
+      line-height: 1.05;
+    }
+
+    .modal-close {
+      appearance: none;
+      border: 1px solid var(--line);
+      background: transparent;
+      color: var(--fg);
+      width: 38px;
+      height: 38px;
+      cursor: pointer;
+      font: 24px/1 var(--mono);
+    }
+
+    .contact-form {
+      display: grid;
+      gap: 16px;
+    }
+
+    .contact-form label {
+      display: grid;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: #050505;
+      color: var(--fg);
+      font: 15px/1.35 var(--mono);
+      padding: 13px 14px;
+      resize: vertical;
+    }
+
+    .contact-form textarea {
+      min-height: 132px;
+    }
+
+    .contact-form button {
+      justify-self: start;
+      border: 1px solid rgba(244, 240, 234, .42);
+      background: var(--fg);
+      color: var(--bg);
+      font: 14px/1 var(--mono);
+      padding: 14px 18px;
+      cursor: pointer;
+    }
+
+    footer {
+      padding: 28px 0;
+      color: var(--quiet);
+      font-family: var(--mono);
+      font-size: 12px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translate3d(0, 42px, 0);
+      transition: opacity .75s cubic-bezier(.22, 1, .36, 1), transform .75s cubic-bezier(.22, 1, .36, 1);
+      transition-delay: var(--delay, 0ms);
+    }
+
+    .reveal.is-visible {
+      opacity: 1;
+      transform: translate3d(0, 0, 0);
+    }
+
+    @media (max-width: 920px) {
+      .shell { width: min(100% - 32px, 1180px); }
+      .nav { height: 64px; }
+      .brand img { width: 70px; }
+      .brand span { display: none; }
+      .nav-links { gap: 13px; font-size: 12px; }
+      .nav-links a:first-child { display: none; }
+
+      .horizontal-section {
+        height: auto;
+      }
+
+      .sticky-track {
+        position: relative;
+        height: auto;
+        padding-top: 64px;
+        overflow: visible;
+      }
+
+      .track-intro,
+      .progress-rail,
+      .hint {
+        display: none;
+      }
+
+      .horizontal-track {
+        display: block;
+        width: 100%;
+        height: auto;
+        transform: none !important;
+      }
+
+      .panel {
+        width: 100%;
+        min-width: 100%;
+        min-height: 78svh;
+        padding: 86px 16px 68px;
+      }
+
+      .panel-content,
+      .panel::before {
+        transform: none !important;
+      }
+
+      .panel-content {
+        max-width: 100%;
+        max-height: none;
+      }
+
+      .chart-layout {
+        grid-template-columns: 1fr;
+        width: 100%;
+      }
+
+      .chart-visual {
+        min-height: auto;
+        transform: none !important;
+      }
+
+      .population-chart,
+      .media-chart {
+        grid-template-columns: 1fr;
+      }
+
+      .donut {
+        width: min(260px, 68vw);
+      }
+
+      .big-number,
+      .media-group,
+      .donut {
+        opacity: 1;
+        transform: none;
+      }
+
+      .progress-fill,
+      .bar span {
+        width: var(--value);
+      }
+
+      .vertical-section { padding: 76px 0; }
+      .section-head { grid-template-columns: 1fr; gap: 22px; }
+      .case-carousel { grid-auto-columns: minmax(280px, 84%); }
+      .contacts { grid-template-columns: 1fr; }
+      .footer-row { flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .horizontal-track,
+      .panel-content,
+      .panel::before,
+      .reveal,
+      .reveal.is-visible {
+        transform: none !important;
+        transition: none !important;
+      }
+      .reveal { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="shell nav" aria-label="Navigazione principale">
+      <a class="brand" href="#top" aria-label="OSA">
+        <img src="../img/logo_osa.png" alt="OSA" />
+        <span>:// Original Style Advertising</span>
+      </a>
+      <div class="nav-links">
+        <a href="#concept">Concept</a>
+        <a href="#contatti">Contatti</a>
+        <a href="#case-history">Case history</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <video class="hero-bg" src="../video/No_camera_movement_natural_movement_202605211233.mp4" autoplay muted playsinline loop preload="metadata" aria-hidden="true"></video>
+      <div class="shell hero-content reveal">
+        <p class="label">:// Original Style Advertising</p>
+        <h1>OSA</h1>
+        <h2><span class="osa-mark">:<span class="slash">//</span></span>Il linguaggio e l'abbigliamento col quale i vostri prodotti si presentano in pubblico.</h2>
+      </div>
+    </section>
+
+    <section id="concept" class="horizontal-section" aria-label="Concept OSA in navigazione orizzontale">
+      <div class="sticky-track">
+        <div class="progress-rail" aria-hidden="true"><span id="conceptProgress"></span></div>
+
+        <div class="horizontal-track" id="horizontalTrack">
+          <article class="panel" style="--panel-img: url('../foto/osa_uomo_all_oblo_della_nave.png')">
+            <div class="panel-content">
+              <div class="panel-count">03 / 16</div>
+              <h2><span class="osa-mark">:<span class="slash">//</span></span>Uno specifico target, il vostro core, battezzabile "Generazione Classic", si riconosce poco o niente in certi linguaggi usati oggi in comunicazione.</h2>
+            </div>
+          </article>
+
+          <article class="panel" style="--panel-img: url('../foto/osa_coppia_sulla_citta_antica.png')">
+            <div class="panel-content">
+              <div class="panel-count">04 / 16</div>
+              <h2><span class="osa-mark">:<span class="slash">//</span></span>È Over-54, osserva il mondo da una posizione privilegiata, ha risorse finanziarie, stabilità economica e predisposizione al consumo.</h2>
+            </div>
+          </article>
+
+          <article class="panel chart-panel">
+            <div class="chart-layout">
+              <div class="chart-copy">
+                <div class="panel-count">05 / 16</div>
+                <h2><span class="osa-mark">:<span class="slash">//</span></span>È un target consistente, lo sapete già, è una vostra fonte di fatturato.</h2>
+                <p class="source">Fonte: distribuzione della popolazione 2025 - Italia. Calcolo OSA su fasce d'età: Over-54 = 55 anni e oltre.</p>
+              </div>
+              <div class="chart-visual population-chart" aria-label="Distribuzione popolazione 2025 - Italia">
+                <div class="population-hero">
+                  <p class="chart-eyebrow">Distribuzione popolazione 2025 - Italia</p>
+                  <div class="big-number">40,5%</div>
+                  <p>Over-54<br>23.862.260 persone<br>su 58.943.464 residenti</p>
+                  <div class="progress-track" aria-hidden="true"><span class="progress-fill" style="--value: 40.5%"></span></div>
+                  <div class="range-note">
+                    <span><b>25-54</b><br>37,6%</span>
+                    <span><b>Over-54</b><br>40,5%</span>
+                  </div>
+                </div>
+                <div class="age-bars">
+                  <p class="chart-eyebrow">Fasce d'età</p>
+                  <div class="age-row"><span>25-44</span><div class="bar"><span style="--value: 100%; --delay: 60ms"></span></div><span>22,4%</span></div>
+                  <div class="age-row"><span>45-54</span><div class="bar"><span style="--value: 68%; --delay: 140ms"></span></div><span>15,2%</span></div>
+                  <div class="age-row is-over"><span>55-64</span><div class="bar"><span style="--value: 70%; --delay: 220ms"></span></div><span>15,7%</span></div>
+                  <div class="age-row is-over"><span>65-74</span><div class="bar"><span style="--value: 53%; --delay: 300ms"></span></div><span>11,9%</span></div>
+                  <div class="age-row is-over"><span>75+</span><div class="bar"><span style="--value: 58%; --delay: 380ms"></span></div><span>12,9%</span></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel" style="--panel-img: url('../foto/osa_donna_con_cornice_nel_campo.png')">
+            <div class="panel-content">
+              <div class="panel-count">06 / 16</div>
+              <h2><span class="osa-mark">:<span class="slash">//</span></span>È il più numeroso.<br>E il linguaggio TV style è quello con cui familiarizza di più.</h2>
+            </div>
+          </article>
+
+          <article class="panel chart-panel">
+            <div class="chart-layout">
+              <div class="chart-copy">
+                <div class="panel-count">07 / 16</div>
+                <h2><span class="osa-mark">:<span class="slash">//</span></span>Sarà per questo che il sistema TV primeggia ancora oggi?</h2>
+                <p class="source">Fonte: Osservatorio Internet Media Politecnico di Milano su dati Nielsen e bilanci operatori. Dati pre-consuntivo.</p>
+              </div>
+              <div class="chart-visual media-chart" aria-label="Mercato media 2025">
+                <div class="donut-wrap">
+                  <p class="chart-eyebrow">Mercato media 2025</p>
+                  <div class="donut" aria-hidden="true">
+                    <div class="donut-center"><strong>56%</strong>VIDEO<br>mercato</div>
+                  </div>
+                  <div class="legend">
+                    <div><span style="--swatch: var(--accent)"></span>Video 56%</div>
+                    <div><span style="--swatch: rgba(244, 240, 234, .64)"></span>Statica 40%</div>
+                    <div><span style="--swatch: rgba(185, 201, 173, .92)"></span>Audio 4%</div>
+                  </div>
+                </div>
+                <div class="media-table">
+                  <div class="media-group" style="--delay: 80ms">
+                    <div class="media-total"><span>VIDEO</span><b>56% mercato / +5% vs 2024</b></div>
+                    <div class="media-line"><span>Tv lineare</span><span>58%</span><span>-1%</span></div>
+                    <div class="media-line"><span>Video online</span><span>38%</span><span>+13%</span></div>
+                    <div class="media-line"><span>Video OOH</span><span>4%</span><span>+23%</span></div>
+                  </div>
+                  <div class="media-group" style="--delay: 180ms">
+                    <div class="media-total"><span>STATICA</span><b>40% mercato / +5% vs 2024</b></div>
+                    <div class="media-line"><span>Statica online</span><span>77%</span><span>+7%</span></div>
+                    <div class="media-line"><span>Stampa</span><span>12%</span><span>-6%</span></div>
+                    <div class="media-line"><span>Statica OOH</span><span>11%</span><span>+3%</span></div>
+                  </div>
+                  <div class="media-group" style="--delay: 280ms">
+                    <div class="media-total"><span>AUDIO</span><b>4% mercato / +3% vs 2024</b></div>
+                    <div class="media-line"><span>Radio</span><span>90%</span><span>+2%</span></div>
+                    <div class="media-line"><span>Digital Audio</span><span>10%</span><span>+10%</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel" style="--panel-img: url('../foto/osa_uomo_che_spia_da_dietro_muro.png')">
+            <div class="panel-content">
+              <div class="panel-count">08 / 16</div>
+              <div class="stacked">
+                <h2><span class="osa-mark">:<span class="slash">//</span></span>Quel linguaggio, in comunicazione, lo si chiamava advertising.<br>Sì, pubblicità, parola che può suonare anacronistica.</h2>
+                <h2><span class="osa-mark">:<span class="slash">//</span></span>Ma il target "Over-54" ci è cresciuto col linguaggio dell'advertising.<br>E oggi lo cerca, perché gli manca.</h2>
+              </div>
+            </div>
+          </article>
+
+          <article class="panel" style="--panel-img: url('../foto/osa_uomo_e_donna_sull_asse_in_equilibrio.png')">
+            <div class="panel-content">
+              <div class="panel-count">09 / 16</div>
+              <h2><span class="osa-mark">:<span class="slash">//</span></span>Original Style Advertsing, "OSA", per gli amici, è una nuova idea di agenzia di comunicazione.</h2>
+              <p>Nasce con un approccio culturale e scientifico pubblicitario. Riattualizzato, per spostare gli equilibri nel mercato contemporaneo.</p>
+            </div>
+          </article>
+
+          <article class="panel" style="--panel-img: url('../foto/osa_donna_sull_albero_con_binocolo.png')">
+            <div class="panel-content">
+              <div class="panel-count">10 / 16</div>
+              <h2><span class="osa-mark">:<span class="slash">//</span></span>OSA non insegue i trend.<br>Ma crea messaggi destinati a durare più di un algoritmo.</h2>
+              <p>Usa insight, USP, reason why e supporting evidence.<br>Studia una "Classic" promise e la valorizza.<br>Analogico o digitale che sia il mezzo pianificato.</p>
+            </div>
+          </article>
+
+          <article class="panel" style="--panel-img: url('../foto/osa_uomo_in_verticale_sul_belvedere.png')">
+            <div class="panel-content">
+              <div class="panel-count">11 / 16</div>
+              <h2><span class="osa-mark">:<span class="slash">//</span></span>Per fare advertising oggi, serve capire le persone, prima ancora delle piattaforme.</h2>
+              <p>Serve l'intraprendenza di esplorare strade nuove, originali, sorprendenti.<br>Per avere cose mai avute, occorre fare cose mai fatte.<br>Occorre osare.</p>
+            </div>
+          </article>
+
+          <article class="panel" style="--panel-img: url('../foto/osa_donna_sulla_scala_davanti_al_muro.png')">
+            <div class="panel-content">
+              <div class="panel-count">12 / 16</div>
+              <h2><span class="osa-mark">:<span class="slash">//</span></span>OSA<br>è il nostro nome.<br><br>Ma anche<br>la nostra missione.</h2>
+            </div>
+          </article>
+
+          <article class="panel center-panel" style="--panel-img: url('../foto/osa_uomo_attraversa_porta_in_strada.png')">
+            <div class="panel-content">
+              <div class="panel-count">13 / 16</div>
+              <h2><span class="osa-mark">:<span class="slash">//</span></span>Conosciamo alla perfezione il linguaggio che funziona sul vostro target.</h2>
+              <p>Usiamo la forma pubblicitaria per esaltare il contenuto e dare consistenza alla comunicazione.<br><br>In sintesi, facciamo dell'advertising un potente strumento di business.<br><br>Così come è sempre stato.</p>
+            </div>
+          </article>
+
+          <article class="panel" style="--panel-img: url('../foto/osa_uomo_sul_monociclo_sopra_la_citta.png')">
+            <div class="panel-content">
+              <div class="panel-count">14 / 16</div>
+              <h2><span class="osa-mark">:<span class="slash">//</span></span>Dietro e dentro OSA c'è una struttura contemporanea fatta di creativi, producer e manager di tutte le età.</h2>
+              <p>Esperienza e visione, insieme.</p>
+            </div>
+          </article>
+
+          <article class="panel" style="--panel-img: url('../foto/osa_donna_dietro_siepe.png')">
+            <div class="panel-content">
+              <div class="panel-count">15 / 16</div>
+              <h2><span class="osa-mark">:<span class="slash">//</span></span>Se volete saperne di più, perché non fate una chiacchierata con un portavoce di OSA?</h2>
+              <p>Scegliete voi chi.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="contatti" class="vertical-section">
+      <div class="shell">
+        <div class="section-head reveal">
+          <p class="label">:// Contatti</p>
+          <div>
+            <h2><span class="osa-mark">:<span class="slash">//</span></span>I nostri portavoce.</h2>
+          </div>
+        </div>
+
+        <div class="contacts">
+          <button class="contact-person reveal" type="button" data-contact="guccio@osa054.com" data-name="Guccio">
+            <div class="contact-image">
+              <img src="../img/portavoce/guccio.png" alt="Guccio" />
+            </div>
+            <span>guccio@osa054.com</span>
+          </button>
+          <button class="contact-person reveal" type="button" data-contact="emilio@osa054.com" data-name="Emilio">
+            <div class="contact-image">
+              <img src="../img/portavoce/emilio.png" alt="Emilio" />
+            </div>
+            <span>emilio@osa054.com</span>
+          </button>
+          <button class="contact-person reveal" type="button" data-contact="fabio@osa054.com" data-name="Fabio">
+            <div class="contact-image">
+              <img src="../img/portavoce/fabio.png" alt="Fabio" />
+            </div>
+            <span>fabio@osa054.com</span>
+          </button>
+          <button class="contact-person reveal" type="button" data-contact="bianca@osa054.com" data-name="Bianca">
+            <div class="contact-image">
+              <img src="../img/portavoce/bianca.png" alt="Bianca" />
+            </div>
+            <span>bianca@osa054.com</span>
+          </button>
+          <button class="contact-person reveal" type="button" data-contact="tommaso@osa054.com" data-name="Tommaso">
+            <div class="contact-image">
+              <img src="../img/portavoce/tommaso.png" alt="Tommaso" />
+            </div>
+            <span>tommaso@osa054.com</span>
+          </button>
+          <button class="contact-person reveal" type="button" data-contact="stefanella@osa054.com" data-name="Stefanella">
+            <div class="contact-image">
+              <img src="../img/portavoce/stefanella.png" alt="Stefanella" />
+            </div>
+            <span>stefanella@osa054.com</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="case-history" class="vertical-section">
+      <div class="shell">
+        <div class="section-head reveal">
+          <p class="label">:// Case history</p>
+          <div>
+            <h2>Per ridurre la teoria in pratica, qualche nostro esempio di sana advertising.</h2>
+          </div>
+        </div>
+
+        <div class="case-carousel">
+          <article class="case-card reveal">
+            <div class="yt-thumb">
+              <img src="../youtube/cover/Gruppo 2.jpg" alt="" />
+            </div>
+            <div class="case-body">
+              <div class="case-meta"><span>Case 01</span><span>Video preview</span></div>
+              <h3>Titolo case history</h3>
+              <div class="case-fields">
+                <p><b>Categoria:</b> da definire.</p>
+                <p><b>Obiettivo:</b> chiarire promessa e valore di marca.</p>
+                <p><b>Solution:</b> idea pubblicitaria memorabile, semplice, ripetibile.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-card reveal">
+            <div class="yt-thumb">
+              <img src="../youtube/cover/Livello 1.jpg" alt="" />
+            </div>
+            <div class="case-body">
+              <div class="case-meta"><span>Case 02</span><span>Video preview</span></div>
+              <h3>Titolo case history</h3>
+              <div class="case-fields">
+                <p><b>Categoria:</b> da definire.</p>
+                <p><b>Obiettivo:</b> aumentare riconoscibilita e fiducia.</p>
+                <p><b>Solution:</b> racconto diretto, tono classic, prova visiva.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-card reveal">
+            <div class="yt-thumb">
+              <img src="../youtube/cover/Livello 2.jpg" alt="" />
+            </div>
+            <div class="case-body">
+              <div class="case-meta"><span>Case 03</span><span>Video preview</span></div>
+              <h3>Titolo case history</h3>
+              <div class="case-fields">
+                <p><b>Categoria:</b> da definire.</p>
+                <p><b>Obiettivo:</b> generare salienza presso la Generazione Classic.</p>
+                <p><b>Solution:</b> insight, USP, reason why e memorabilita.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-card reveal">
+            <div class="yt-thumb">
+              <img src="../youtube/cover/Livello 3.jpg" alt="" />
+            </div>
+            <div class="case-body">
+              <div class="case-meta"><span>Case 04</span><span>Video preview</span></div>
+              <h3>Titolo case history</h3>
+              <div class="case-fields">
+                <p><b>Categoria:</b> da definire.</p>
+                <p><b>Obiettivo:</b> rendere il messaggio piu distintivo.</p>
+                <p><b>Solution:</b> forma pubblicitaria forte, precisa, contemporanea.</p>
+              </div>
+            </div>
+          </article>
+
+          <article class="case-card reveal">
+            <div class="yt-thumb">
+              <img src="../youtube/cover/Livello 4.jpg" alt="" />
+            </div>
+            <div class="case-body">
+              <div class="case-meta"><span>Case 05</span><span>Video preview</span></div>
+              <h3>Titolo case history</h3>
+              <div class="case-fields">
+                <p><b>Categoria:</b> da definire.</p>
+                <p><b>Obiettivo:</b> trasformare la promessa in ricordo.</p>
+                <p><b>Solution:</b> una forma narrativa riconoscibile, adatta al mezzo.</p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <div class="modal" id="contactModal" aria-hidden="true">
+      <div class="modal-backdrop" data-close-modal></div>
+      <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="contactModalTitle">
+        <div class="modal-head">
+          <h2 id="contactModalTitle">Contatta OSA</h2>
+          <button class="modal-close" type="button" data-close-modal aria-label="Chiudi">×</button>
+        </div>
+        <form class="contact-form">
+          <label>Nome
+            <input type="text" name="nome" autocomplete="name" required />
+          </label>
+          <label>Email
+            <input type="email" name="email" autocomplete="email" required />
+          </label>
+          <label>Messaggio
+            <textarea name="messaggio" required></textarea>
+          </label>
+          <button type="submit">Invia</button>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="shell footer-row">
+      <span>OSA - Original Style Advertising</span>
+      <span>:// Messaggi destinati a durare piu di un algoritmo.</span>
+    </div>
+  </footer>
+
+  <script>
+    const horizontalSection = document.querySelector(".horizontal-section");
+    const track = document.getElementById("horizontalTrack");
+    const progress = document.getElementById("conceptProgress");
+    const panels = Array.from(document.querySelectorAll(".panel"));
+    let targetX = 0;
+    let currentX = 0;
+    let targetRatio = 0;
+    let currentRatio = 0;
+    let rafId = null;
+
+    function clamp(value, min, max) {
+      return Math.max(min, Math.min(max, value));
+    }
+
+    function measureHorizontal() {
+      if (!horizontalSection || !track || window.matchMedia("(max-width: 920px)").matches) {
+        targetX = 0;
+        currentX = 0;
+        targetRatio = 0;
+        currentRatio = 0;
+        if (track) track.style.setProperty("--track-x", "0px");
+        if (progress) progress.style.setProperty("--progress", "0%");
+        return;
+      }
+
+      const rect = horizontalSection.getBoundingClientRect();
+      const maxScroll = horizontalSection.offsetHeight - window.innerHeight;
+      const travelled = clamp(-rect.top, 0, maxScroll);
+      const ratio = maxScroll > 0 ? travelled / maxScroll : 0;
+      const maxX = track.scrollWidth - window.innerWidth;
+      targetX = -maxX * ratio;
+      targetRatio = ratio;
+      startHorizontalAnimation();
+    }
+
+    function renderHorizontal() {
+      currentX += (targetX - currentX) * 0.095;
+      currentRatio += (targetRatio - currentRatio) * 0.095;
+
+      track.style.setProperty("--track-x", `${currentX.toFixed(2)}px`);
+      progress.style.setProperty("--progress", `${currentRatio * 100}%`);
+
+      panels.forEach((panel, index) => {
+        const panelCenter = index / Math.max(panels.length - 1, 1);
+        const depth = clamp((currentRatio - panelCenter) * 2, -1, 1);
+        panel.style.setProperty("--panel-depth", depth.toFixed(3));
+        panel.classList.toggle("is-active", Math.abs(currentRatio - panelCenter) < .045);
+      });
+
+      if (Math.abs(targetX - currentX) > 0.2 || Math.abs(targetRatio - currentRatio) > 0.001) {
+        rafId = requestAnimationFrame(renderHorizontal);
+      } else {
+        currentX = targetX;
+        currentRatio = targetRatio;
+        track.style.setProperty("--track-x", `${currentX.toFixed(2)}px`);
+        progress.style.setProperty("--progress", `${currentRatio * 100}%`);
+        rafId = null;
+      }
+    }
+
+    function startHorizontalAnimation() {
+      if (!rafId) {
+        rafId = requestAnimationFrame(renderHorizontal);
+      }
+    }
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: .16, rootMargin: "0px 0px -8% 0px" });
+
+    document.querySelectorAll(".reveal").forEach((item, index) => {
+      item.style.setProperty("--delay", `${Math.min(index % 4, 3) * 70}ms`);
+      revealObserver.observe(item);
+    });
+
+    const contactModal = document.getElementById("contactModal");
+    const contactModalTitle = document.getElementById("contactModalTitle");
+    const contactForm = document.querySelector(".contact-form");
+    let activeContactEmail = "";
+
+    function openContactModal(person) {
+      activeContactEmail = person.dataset.contact || "";
+      contactModalTitle.textContent = `Contatta ${person.dataset.name || "OSA"}`;
+      contactModal.classList.add("is-open");
+      contactModal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      const firstInput = contactForm.querySelector("input");
+      if (firstInput) firstInput.focus();
+    }
+
+    function closeContactModal() {
+      contactModal.classList.remove("is-open");
+      contactModal.setAttribute("aria-hidden", "true");
+      document.body.style.overflow = "";
+    }
+
+    document.querySelectorAll(".contact-person").forEach((person) => {
+      person.addEventListener("click", () => openContactModal(person));
+    });
+
+    document.querySelectorAll("[data-close-modal]").forEach((item) => {
+      item.addEventListener("click", closeContactModal);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && contactModal.classList.contains("is-open")) {
+        closeContactModal();
+      }
+    });
+
+    contactForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const formData = new FormData(contactForm);
+      const nome = formData.get("nome") || "";
+      const email = formData.get("email") || "";
+      const messaggio = formData.get("messaggio") || "";
+      const subject = encodeURIComponent(`Contatto OSA - ${nome}`);
+      const body = encodeURIComponent(`Nome: ${nome}\nEmail: ${email}\n\n${messaggio}`);
+      window.location.href = `mailto:${activeContactEmail}?subject=${subject}&body=${body}`;
+    });
+
+    measureHorizontal();
+    window.addEventListener("scroll", measureHorizontal, { passive: true });
+    window.addEventListener("resize", measureHorizontal);
+  </script>
+</body>
+</html>
