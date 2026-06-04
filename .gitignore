@@ -23,6 +23,7 @@ img/embedded-slides/
 # Keep only the hero video used by the published pages.
 video/*
 !video/No_camera_movement_natural_movement_202605211233.mp4
+!video/Waves_arriving_on_beach_loop_202605201704.mp4
 
 # Keep only lightweight cover images from the YouTube folder.
 youtube/*
