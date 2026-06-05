@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>OSA - Horizontal Concept</title>
   <meta name="description" content="OSA - Original Style Advertising. Concept orizzontale, case history e contatti." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300&display=swap" rel="stylesheet">
   <style>
     :root {
       --bg: #050505;
@@ -16,7 +19,7 @@
       --sage: #b9c9ad;
       --video: #f0a0a6;
       --static: #a9d6ef;
-      --mono: "Courier Prime", "Courier New", Courier, monospace;
+      --mono: "Roboto Mono", "Courier New", Courier, monospace;
       --sans: var(--mono);
     }
 
@@ -37,7 +40,7 @@
 
     h1, h2, h3, .mono, .label, .nav, .case-meta, .contacts {
       font-family: var(--mono);
-      font-weight: 400;
+      font-weight: 300;
       letter-spacing: 0;
     }
 
@@ -146,6 +149,21 @@
       line-height: 1.13;
     }
 
+    .typewriter-text {
+      display: inline;
+    }
+
+    .typewriter-text.is-typing::after {
+      content: "";
+      display: inline-block;
+      width: .08em;
+      height: .9em;
+      margin-left: .08em;
+      background: var(--fg);
+      transform: translateY(.08em);
+      animation: cursor-blink .78s steps(1) infinite;
+    }
+
     .horizontal-section {
       position: relative;
       height: 1320vh;
@@ -221,10 +239,11 @@
       inset: 0;
       background:
         linear-gradient(90deg, rgba(5,5,5,.94), rgba(5,5,5,.58) 48%, rgba(5,5,5,.16)),
-        var(--panel-img) center / cover no-repeat;
+        var(--panel-img) var(--panel-position, center) / var(--panel-size, cover) no-repeat;
+      background-color: #050505;
       filter: grayscale(1);
       opacity: .62;
-      transform: translate3d(calc(var(--panel-depth, 0) * -16px), 0, 0) scale(1.08);
+      transform: translate3d(calc(var(--panel-depth, 0) * var(--panel-parallax, -16px)), 0, 0) scale(var(--panel-scale, 1.08));
       will-change: transform;
     }
 
@@ -322,7 +341,7 @@
     .media-total,
     .donut-center {
       font-family: var(--mono);
-      font-weight: 400;
+      font-weight: 300;
       letter-spacing: 0;
     }
 
@@ -446,7 +465,7 @@
 
     .range-note b {
       color: var(--fg);
-      font-weight: 400;
+      font-weight: 300;
     }
 
     .media-chart {
@@ -503,7 +522,7 @@
       display: block;
       color: var(--accent);
       font-size: 34px;
-      font-weight: 400;
+      font-weight: 300;
     }
 
     .panel.is-active .donut {
@@ -560,7 +579,7 @@
 
     .media-total b {
       color: var(--accent);
-      font-weight: 400;
+      font-weight: 300;
     }
 
     .media-line {
@@ -730,7 +749,7 @@
     .case-fields b {
       color: var(--sage);
       font-family: var(--mono);
-      font-weight: 400;
+      font-weight: 300;
     }
 
     .contacts {
@@ -962,11 +981,17 @@
       .panel {
         width: 100%;
         min-width: 100%;
-        min-height: 70svh;
-        padding: 84px 16px 72px;
+        min-height: auto;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto;
+        align-items: stretch;
+        gap: 0;
+        padding: 72px 16px;
         border-top: 1px solid rgba(244, 240, 234, .12);
-        content-visibility: auto;
-        contain-intrinsic-size: 720px;
+        overflow: hidden;
+        content-visibility: visible;
+        contain-intrinsic-size: none;
       }
 
       .panel-content,
@@ -974,14 +999,47 @@
         transform: none;
       }
 
+      .panel:not(.chart-panel)::before {
+        position: relative;
+        inset: auto;
+        display: block;
+        grid-row: 1;
+        width: 100%;
+        min-height: clamp(250px, 48svh, 430px);
+        border: 1px solid rgba(244, 240, 234, .12);
+        background:
+          linear-gradient(0deg, rgba(5,5,5,.28), rgba(5,5,5,.06)),
+          var(--panel-img) var(--panel-position, center) / var(--panel-size, cover) no-repeat;
+        opacity: .82;
+      }
+
       .panel-content {
+        grid-row: 2;
+        width: 100%;
+        min-width: 0;
         max-width: 100%;
         max-height: none;
+        padding: 26px 0 0;
+      }
+
+      .panel:nth-child(even):not(.chart-panel)::before {
+        grid-row: 2;
+      }
+
+      .panel:nth-child(even):not(.chart-panel) .panel-content {
+        grid-row: 1;
+        padding: 0 0 26px;
       }
 
       .panel h2 {
-        font-size: clamp(25px, 8.2vw, 43px);
+        width: 100%;
+        max-width: 100%;
+        font-size: clamp(23px, 7.2vw, 36px);
         line-height: 1.14;
+        overflow-wrap: break-word;
+        word-break: normal;
+        hyphens: auto;
+        text-wrap: pretty;
       }
 
       .panel p {
@@ -993,6 +1051,10 @@
       .chart-panel {
         padding-top: 84px;
         padding-bottom: 72px;
+      }
+
+      .chart-panel::before {
+        display: none;
       }
 
       .chart-layout {
@@ -1081,6 +1143,11 @@
       to { opacity: .62; }
     }
 
+    @keyframes cursor-blink {
+      0%, 46% { opacity: 1; }
+      47%, 100% { opacity: 0; }
+    }
+
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
       .horizontal-track,
@@ -1116,7 +1183,7 @@
       <div class="shell hero-content reveal">
         <p class="label">:// Original Style Advertising</p>
         <img class="hero-logo" src="../img/logo_osa.png" alt="OSA" />
-        <h2><span class="osa-mark">:<span class="slash">//</span></span>Il linguaggio è l'abbigliamento col quale i vostri prodotti si presentano in pubblico.</h2>
+        <h2><span class="osa-mark">:<span class="slash">//</span></span><span class="typewriter-text" data-typewriter-text="Il linguaggio è l'abbigliamento col quale i vostri prodotti si presentano in pubblico.">Il linguaggio è l'abbigliamento col quale i vostri prodotti si presentano in pubblico.</span></h2>
       </div>
     </section>
 
@@ -1125,7 +1192,7 @@
         <div class="progress-rail" aria-hidden="true"><span id="conceptProgress"></span></div>
 
         <div class="horizontal-track" id="horizontalTrack">
-          <article class="panel" style="--panel-img: url('../foto/osa_uomo_all_oblo_della_nave.png')">
+          <article class="panel" style="--panel-img: url('../foto/osa_uomo_all_oblo_della_nave.png'); --panel-position: left center; --panel-size: 124% auto">
             <div class="panel-content">
               <h2><span class="osa-mark">:<span class="slash">//</span></span>Uno specifico target, il vostro core, battezzabile <span class="hl-accent">"Generazione Classic"</span>, si riconosce poco o niente in certi linguaggi usati oggi in comunicazione.</h2>
             </div>
@@ -1243,7 +1310,7 @@
             </div>
           </article>
 
-          <article class="panel" style="--panel-img: url('../foto/osa_donna_sulla_scala_davanti_al_muro.png')">
+          <article class="panel" style="--panel-img: url('../foto/osa_donna_sulla_scala_davanti_al_muro.png'); --panel-size: contain; --panel-position: center center; --panel-scale: 1; --panel-parallax: 0px">
             <div class="panel-content">
               <h2><span class="osa-mark">:<span class="slash">//</span></span>OSA<br>è il nostro nome.<br><br>Ma anche<br>la nostra missione.</h2>
             </div>
@@ -1285,37 +1352,37 @@
         <div class="contacts">
           <button class="contact-person reveal" type="button" data-contact="guccio@osa054.com" data-name="Guccio">
             <div class="contact-image">
-              <img src="../img/portavoce/guccio.png" alt="Guccio" />
+              <img src="../img/portavoce/guccio.jpg" alt="Guccio" />
             </div>
             <span>guccio@osa054.com</span>
           </button>
           <button class="contact-person reveal" type="button" data-contact="emilio@osa054.com" data-name="Emilio">
             <div class="contact-image">
-              <img src="../img/portavoce/emilio.png" alt="Emilio" />
+              <img src="../img/portavoce/emilio.jpg" alt="Emilio" />
             </div>
             <span>emilio@osa054.com</span>
           </button>
           <button class="contact-person reveal" type="button" data-contact="fabio@osa054.com" data-name="Fabio">
             <div class="contact-image">
-              <img src="../img/portavoce/fabio.png" alt="Fabio" />
+              <img src="../img/portavoce/fabio.jpg" alt="Fabio" />
             </div>
             <span>fabio@osa054.com</span>
           </button>
           <button class="contact-person reveal" type="button" data-contact="bianca@osa054.com" data-name="Bianca">
             <div class="contact-image">
-              <img src="../img/portavoce/bianca.png" alt="Bianca" />
+              <img src="../img/portavoce/bianca.jpg" alt="Bianca" />
             </div>
             <span>bianca@osa054.com</span>
           </button>
           <button class="contact-person reveal" type="button" data-contact="tommaso@osa054.com" data-name="Tommaso">
             <div class="contact-image">
-              <img src="../img/portavoce/tommaso.png" alt="Tommaso" />
+              <img src="../img/portavoce/tommaso.jpg" alt="Tommaso" />
             </div>
             <span>tommaso@osa054.com</span>
           </button>
           <button class="contact-person reveal" type="button" data-contact="stefanella@osa054.com" data-name="Stefanella">
             <div class="contact-image">
-              <img src="../img/portavoce/stefanella.png" alt="Stefanella" />
+              <img src="../img/portavoce/stefanella.jpg" alt="Stefanella" />
             </div>
             <span>stefanella@osa054.com</span>
           </button>
@@ -1452,6 +1519,29 @@
     let currentRatio = 0;
     let rafId = null;
 
+    function runTypewriter() {
+      const typewriter = document.querySelector("[data-typewriter-text]");
+      if (!typewriter || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+      const text = typewriter.dataset.typewriterText || typewriter.textContent || "";
+      let index = 0;
+      typewriter.textContent = "";
+      typewriter.classList.add("is-typing");
+
+      function typeNextCharacter() {
+        typewriter.textContent = text.slice(0, index);
+        index += 1;
+
+        if (index <= text.length) {
+          const currentChar = text.charAt(index - 2);
+          const delay = currentChar === "," || currentChar === "." ? 260 : 72;
+          window.setTimeout(typeNextCharacter, delay);
+        }
+      }
+
+      window.setTimeout(typeNextCharacter, 720);
+    }
+
     function clamp(value, min, max) {
       return Math.max(min, Math.min(max, value));
     }
@@ -1569,6 +1659,7 @@
     });
 
     measureHorizontal();
+    runTypewriter();
     window.addEventListener("scroll", measureHorizontal, { passive: true });
     window.addEventListener("resize", measureHorizontal);
   </script>
