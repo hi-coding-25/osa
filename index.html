@@ -1744,7 +1744,7 @@
         width: 100%;
       }
 
-      .hero-logo { width: clamp(200px, 48vw, 300px); }
+      .hero-logo { width: clamp(220px, 53vw, 330px); }
 
       .hero-payoff {
         font-size: clamp(14px, 3.4vw, 16px);
@@ -1758,7 +1758,7 @@
 
       .hero h2 {
         max-width: 100%;
-        font-size: clamp(28px, 7.4vw, 42px);
+        font-size: clamp(25px, 6.7vw, 38px);
         line-height: 1.08;
       }
 
@@ -1777,6 +1777,31 @@
       .horizontal-section {
         height: auto;
         margin-top: 0;
+        position: relative;
+      }
+      .horizontal-section::after {
+        content: "";
+        position: absolute;
+        right: 16px;
+        bottom: -30px;
+        width: min(52vw, 220px);
+        height: 4px;
+        background:
+          linear-gradient(
+            90deg,
+            var(--sage) 0 13%,
+            var(--accent) 13% 28%,
+            rgba(244, 240, 234, .9) 28% 44%,
+            rgba(244, 240, 234, .14) 44% 57%,
+            var(--sage) 57% 72%,
+            var(--accent) 72% 85%,
+            rgba(244, 240, 234, .9) 85% 97%,
+            rgba(244, 240, 234, .16) 97% 100%
+          );
+        background-size: 200% 100%;
+        background-position: 100% 50%;
+        opacity: .92;
+        pointer-events: none;
       }
 
       .sticky-track {
@@ -1811,7 +1836,7 @@
         grid-template-columns: minmax(0, 1fr);
         grid-template-rows: auto auto;
         align-items: stretch;
-        gap: 18px;
+        gap: 20px;
         padding: 58px 16px 70px;
         border-top: 0;
         overflow: hidden;
@@ -2187,7 +2212,8 @@
         max-width: 100%;
       }
       .bridge-section h2 {
-        font-size: clamp(14px, 4.6vw, 23px);
+        font-size: clamp(22px, 5.8vw, 32px);
+        line-height: 1.08;
       }
       .bridge-section p {
         font-size: clamp(12px, 3.5vw, 14px);
@@ -2206,8 +2232,8 @@
       .case-history-head h2 {
         width: 100%;
         max-width: 100%;
-        font-size: clamp(14px, 4.6vw, 23px);
-        line-height: 1.14;
+        font-size: clamp(22px, 5.8vw, 32px);
+        line-height: 1.08;
       }
 
       .hl-sage {
@@ -2296,10 +2322,14 @@
         padding: 26px 0 40px;
         background: #050505;
         border-top: 1px solid rgba(244, 240, 234, .1);
-        color: rgba(244, 240, 234, .6);
-        font-size: 10px;
+        color: rgba(244, 240, 234, .78);
+        font-size: 11px;
       }
-      .footer-row { flex-direction: column; }
+      .footer-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
       .footer-typewriter-wrap {
         width: 100%;
         flex-basis: auto;
@@ -2535,7 +2565,7 @@
             </div>
           </article>
 
-          <article class="panel testo_50_centro panel-video panel-video-strong" style="--panel-img: url('images/bilancia_mobile.webp'); --panel-mobile-img: url('images/bilancia_mobile.webp'); --panel-mobile-ratio: 1 / 1; --panel-position: center center; --panel-size: cover">
+          <article class="panel testo_50_centro panel-video panel-video-strong" style="--panel-img: url('images/bilancia_mobile.webp'); --panel-mobile-img: url('images/bilancia_mobile.webp'); --panel-mobile-ratio: 1080 / 504; --panel-position: center center; --panel-size: cover">
             <video class="panel-bg-video" src="images/bilancia.mp4" autoplay muted playsinline loop preload="metadata" aria-hidden="true"></video>
             <div class="panel-content">
               <h2><span class="osa-mark">:<span class="slash">//</span></span>Original Style Advertsing, "OSA", per gli amici, è una <span class="hl-sage">nuova idea di agenzia</span> di comunicazione.</h2>
