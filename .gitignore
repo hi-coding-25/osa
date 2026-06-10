@@ -39,3 +39,4 @@ html/*
 # Local OS/editor noise.
 .DS_Store
 *.tmp
+psd/osa_cover_case_history.psd
